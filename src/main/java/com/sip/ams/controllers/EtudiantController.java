@@ -5,13 +5,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import Entities.Etudiant;
-
+@RequestMapping("/etudiant")
 @Controller
 public class EtudiantController {
 	List<Etudiant> etudiants = new ArrayList<>();
@@ -88,5 +90,27 @@ public class EtudiantController {
 		return "redirect:students";
 	}
 	
+	
+	@GetMapping("/delete/{ide}")
+	public String supression(@PathVariable("ide")int id) {
+		System.out.println("ide ="+ id);
+		Etudiant etudiant = new Etudiant();
+		etudiant = recherche(etudiants, id );
+		etudiants.remove(etudiant);
+		return "redirect:../students";
+	}
+	
+	private Etudiant recherche(List<Etudiant> liste , int index) {
+		
+		Etudiant temp = null ;
+		for (Etudiant e : liste) {
+			if (e.getId() == index) {
+				temp = e;
+				return e;
+			}
+		}
+		
+		return temp;
+	}
 
 }
