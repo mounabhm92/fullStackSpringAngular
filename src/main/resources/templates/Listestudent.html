@@ -20,7 +20,7 @@ liste des étudiants
 <td th:text="${etudiant.id}"></td>
 <td th:text="${etudiant.nom}"></td>
 <td th:text="${etudiant.Email}"></td>
-<td ><ath:href="@{/etudiant/update/{idf}(idf=${etudiant.id})}" class="btn btn-warning">Modifier</td>
+<td ><a th:href="@{/etudiant/update/{ide}/(ide=${etudiant.id})}" class="btn btn-warning">Modifier</td>
 <td ><a th:href="@{/etudiant/delete/{ide}(ide=${etudiant.id})}"  class="btn btn-danger">Supprimer</td>
 
 </tr>

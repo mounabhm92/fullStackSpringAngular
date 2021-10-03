@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -112,5 +113,50 @@ public class EtudiantController {
 		
 		return temp;
 	}
+
+	
+	
+	
+	@GetMapping("/update/{ide}")
+	public ModelAndView getUpdateForm(@PathVariable("ide")int id) {
+
+		System.out.println("id = "+id);
+		Etudiant e = null;
+		e =  recherche(etudiants, id);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("etudiant", e);
+		mv.setViewName("updateEtudiant");
+		return mv;
+	}
+	
+
+	
+	@PostMapping("/update")
+	public String updateEtudiant(Etudiant etudiant) // id = ide
+	{
+		//System.out.println(etudiant);
+		int index = rechercheIndex(etudiants, etudiant);
+		etudiants.set(index, etudiant);
+		return "redirect:students";
+	}
+	
+	
+	
+	private int rechercheIndex(List<Etudiant> le, Etudiant e)
+	{
+		int compteur = -1;
+		for(Etudiant temp : le)
+		{
+			compteur++;
+			if(temp.getId()==e.getId())
+			{
+				return compteur;
+			}
+			
+		}
+		return compteur;
+	}
+	
+
 
 }
